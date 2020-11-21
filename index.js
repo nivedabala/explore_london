@@ -1,4 +1,3 @@
-
 let map, infoWindow;
 
 function initMap() {
@@ -6,13 +5,14 @@ function initMap() {
     center: { lat: -34.397, lng: 150.644 },
     zoom: 6,
   });
-
+  
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
   locationButton.textContent = "Pan to Current Location";
   locationButton.classList.add("custom-map-control-button");
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
   locationButton.addEventListener("click", () => {
+
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -46,4 +46,3 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   );
   infoWindow.open(map);
 }
-
