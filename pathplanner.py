@@ -63,5 +63,5 @@ def readArt(art):
 
 # TESTING
 #calcDist()
-#readParks(parks)
-#readArt(art)
+readParks(parks)
+readArt(art)
