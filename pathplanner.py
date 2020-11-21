@@ -8,6 +8,8 @@ user_wants_trees = True
 return_to_start = True
 total_distanceKM = 5
 destinations = []
+art = []
+parks = []
 #testing
 dest = '378 Horton St E, London, ON N6B 1L7'
 
@@ -20,11 +22,35 @@ def calcDist():
     print(x)
 
 
-# def parks():
-#     # read in parks data
+def readParks(parks):
+    # read in parks data
+    with open('Parks.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                line_count += 1
+            else:
+                # add address to art[]
+                parks.append(row[2])
+                line_count += 1
+        print("file had %d lines" % line_count)
+        print(parks)
 
-# def art():
-#     # read in art data
+def readArt(art):
+    # read in art data
+    with open('Public_Art.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                line_count += 1
+            else:
+                # add address to art[]
+                art.append(row[5])
+                line_count += 1
+        print("file had % lines" % line_count)
+        print(art)
 
 # def sortParks():
 #     # find nearest parks
@@ -32,5 +58,9 @@ def calcDist():
 # def sortArt():
 #     # find nearest art
 
+# def feedback():
+#     # most visited destinations
+
 # TESTING
-calcDist()
+#readParks(parks)
+#readArt(art)
