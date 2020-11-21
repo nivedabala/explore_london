@@ -9,7 +9,7 @@ def home():
 
 @app.route("/question")
 def question():
-    return render_template("question.html")
+    return render_template("questions.html")
 
 @app.route("/display")
 def display():
