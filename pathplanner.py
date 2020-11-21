@@ -1,7 +1,6 @@
 import csv, requests, json
 url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
-start_location = '111 Wharncliffe Rd S, London, ON N6J 2K2'
 user_wants_parks = True
 user_wants_art = True
 user_wants_trees = True
@@ -12,6 +11,7 @@ art = {}
 parks = []
 #testing
 dest = '378 Horton St E, London, ON N6B 1L7'
+start_location = '111 Wharncliffe Rd S, London, ON N6J 2K2'
 
 def calcDist():
     # calculate distance between two places
@@ -58,10 +58,22 @@ def readArt(art):
 # def sortArt():
 #     # find nearest art
 
+# def plan():
+#     # create plan until path length = desired length
+
+
 # def feedback():
 #     # most visited destinations
 
+
 # TESTING
+<<<<<<< HEAD
 #calcDist()
-#readParks(parks)
-#readArt(art)
+readParks(parks)
+readArt(art)
+=======
+#if __name__ == "__main__":
+ #   calcDist()
+  #  readParks(parks)
+   # readArt(art)
+>>>>>>> 415eceb58448f96f643f76ea5be22e70035a548a

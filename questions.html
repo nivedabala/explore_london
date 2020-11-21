@@ -8,10 +8,6 @@
 
     <script src="buttons.js"></script>
 
-    <script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
-
     <style>
       body {
         background-color: #C5F1D8;
@@ -28,7 +24,7 @@
         <p>What do you want to see today?</p> 
     </div>
 
-    <form class="form-center">
+    <form name="sights" class="form-center">
         <input type="checkbox" id="choice1" name="choice1" value="Trees">
         <label for="choice1"> I want to see TREES</label><br>
         <input type="checkbox" id="choice2" name="choice2" value="Parks">
@@ -38,25 +34,27 @@
         <input type="checkbox" id="choice4" name="choice4" value="Art">
         <label for="choice4"> I want to see PUBLIC ART</label><br>       
     </form>
+
+    <div class="block">
+        <p>How far do you want to go?</p> 
+    </div>
+
+    <form name="distance" class="form-center">
+        <input type="radio" id="range1" name="distance" value="1">
+        <label for="choice1"> 0 - 1 km</label><br>
+        <input type="radio" id="range2" name="distance" value="3">
+        <label for="choice2"> 1 - 3 km</label><br>  
+        <input type="radio" id="range3" name="distance" value="5">
+        <label for="choice3"> 3 - 5 km</label><br>
+        <input type="radio" id="range4" name="distance" value="7">
+        <label for="choice4"> 5 - 7 km</label><br>  
+        <input type="radio" id="range4" name="distance" value="10">
+        <label for="choice4"> 7 - 10 km</label><br>      
+    </form>
+
+    <div class="block">
+        <button id="next" onclick="location.href='display.html'">Show me my path</button>
+      </div>
+
   </body>
 </html>
-
-
-<!--
-    <div>
-                    <input type="checkbox" id="choice1" name="choice1" value="Trees">
-                    <label for="choice1"> I want to see TREES</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="choice2" name="choice2" value="Parks">
-                    <label for="choice2"> I want to go to a PARK</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="choice3" name="choice3" value="Trails">
-                    <label for="choice3"> I want to visit a TRAIL</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="choice4" name="choice4" value="Art">
-                    <label for="choice4"> I want to see PUBLIC ART</label>
-                </div>
--->
