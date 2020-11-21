@@ -10,16 +10,17 @@ first_park_dist_threshold = 5000 # this is the max acceptable distance for the f
 destinations = []
 art = {}
 parks = []
-#testing
-dest = '378 Horton St E, London, ON N6B 1L7'
-start_location = '111 Wharncliffe Rd S, London, ON N6J 2K2'
-start = start_location
-goal = dest
+# TESTING
+goal = '378 Horton St E, London, ON N6B 1L7'
+start = '111 Wharncliffe Rd S, London, ON N6J 2K2'
+# ONE TIME USE
+numClosestParks = 5 # number of closest parks to find for each park (walking distance)
+
 
 def calcDist(start, goal):
     # calculate walking distance between two places
-    r = requests.get(url + 'origins=' + start_location + '&mode=walking' +
-                   '&destinations=' + dest +
+    r = requests.get(url + 'origins=' + start + '&mode=walking' +
+                   '&destinations=' + goal +
                    '&key=' + api_key)
     x = r.json() 
     # print(x)
@@ -78,9 +79,10 @@ def findFirstPark(parks, threshold, start_location):
 
 
 
-# def closestParks():
-#     # RUN ONCE TO GENERATE SPREADSHEET
+# def closestParks(X, parks):
+#     # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
 #     # Finds the X closest parks to each park
+#     return
 
 
 # def feedback():
