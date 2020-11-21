@@ -3,7 +3,6 @@ import csv
 
 app = Flask(__name__)
 
-
 # @app.route('/', methods=['GET'])
 # def api():
 # return {
@@ -13,7 +12,7 @@ app = Flask(__name__)
 # }
 @app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template("home.html", user_image = "/UPLOAD_FOLDER/download.png")
 
 
 @app.route("/questions", methods=['GET', 'POST'])
