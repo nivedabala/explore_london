@@ -5,7 +5,8 @@ user_wants_parks = True
 user_wants_art = True
 user_wants_trees = True
 return_to_start = True
-total_distanceKM = 5
+total_distanceM = 10000
+first_park_dist_threshold = 5000 # this is the max acceptable distance for the first park
 destinations = []
 art = {}
 parks = []
@@ -65,6 +66,17 @@ def readArt(art):
 
 # def plan():
 #     # create plan until path length = desired length
+
+def findFirstPark(parks, threshold, start_location):
+    # finds the first park in list that is in acceptable threshold
+    # returns the address of the park
+    # this may be very time consuming/costly (lots of api calls), use sparingly
+    for park in parks:
+        if calcDist(start_location, park) <= threshold:
+            return park
+    return("no parks within threshold")
+
+
 
 # def closestParks():
 #     # RUN ONCE TO GENERATE SPREADSHEET
