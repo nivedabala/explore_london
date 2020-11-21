@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="../layout.css">
 
     <title>Questions</title>
 
-    <script src="buttons.js"></script>
+    <script src="../buttons.js"></script>
 
     <style>
       body {
@@ -17,7 +17,7 @@
 
   <body>
     <div class="banner">
-      <img id="logo" src="download.png" alt="London Logo"></img>
+      <img id="logo" src="../download.png" alt="London Logo"></img>
     </div>
 
     <div class="block">
@@ -39,7 +39,7 @@
         <p>How far do you want to go?</p> 
     </div>
 
-    <form name="distance" class="form-center">
+    <form name="distance" class="form-center" action="http://localhost:5000/display" method = "POST">
         <input type="radio" id="range1" name="distance" value="1">
         <label for="choice1"> 0 - 1 km</label><br>
         <input type="radio" id="range2" name="distance" value="3">
