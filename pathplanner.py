@@ -12,14 +12,19 @@ parks = []
 #testing
 dest = '378 Horton St E, London, ON N6B 1L7'
 start_location = '111 Wharncliffe Rd S, London, ON N6J 2K2'
+start = start_location
+goal = dest
 
-def calcDist():
-    # calculate distance between two places
+def calcDist(start, goal):
+    # calculate walking distance between two places
     r = requests.get(url + 'origins=' + start_location + '&mode=walking' +
                    '&destinations=' + dest +
                    '&key=' + api_key)
     x = r.json() 
-    print(x)
+    # print(x)
+    # return the distance only (in metres)
+    return x["rows"][0]["elements"][0]["distance"]["value"] # /1000 to get km
+    
 
 
 def readParks(parks):
@@ -66,14 +71,12 @@ def readArt(art):
 #     # Finds the X closest parks to each park
 
 
-
-
 # def feedback():
 #     # most visited destinations
 
 
 # TESTING
-# calcDist()
+# print(calcDist(start, goal))
 # readParks(parks)
 # readArt(art)
 
