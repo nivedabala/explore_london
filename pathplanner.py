@@ -7,7 +7,7 @@ user_wants_trees = True
 return_to_start = True
 total_distanceM = 10000
 first_park_dist_threshold = 5000 # this is the max acceptable distance for the first park
-destinations = []
+path = []
 art = {}
 parks = []
 # TESTING
@@ -27,8 +27,6 @@ def calcDist(start, goal):
     # return the distance only (in metres)
     return x["rows"][0]["elements"][0]["distance"]["value"] # /1000 to get km
     
-
-
 def readParks(parks):
     # read in parks data
     with open('Parks.csv') as csv_file:
@@ -59,15 +57,6 @@ def readArt(art):
         print("file had %d lines" % line_count)
         print(art)
 
-# def sortParks():
-#     # find nearest parks
-
-# def sortArt():
-#     # find nearest art
-
-# def plan():
-#     # create plan until path length = desired length
-
 def findFirstPark(parks, threshold, start_location):
     # finds the first park in list that is in acceptable threshold
     # returns the address of the park
@@ -77,17 +66,18 @@ def findFirstPark(parks, threshold, start_location):
             return park
     return("no parks within threshold")
 
-
-
 # def closestParks(X, parks):
 #     # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
 #     # Finds the X closest parks to each park
 #     return
 
+def plan(path, wantsArt, wantsTrees, desiredLength):
+    # returns an ordered list of locations
+    # plans until pathLength == desiredLength
+    return path
 
 # def feedback():
 #     # most visited destinations
-
 
 # TESTING
 # print(calcDist(start, goal))
