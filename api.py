@@ -3,14 +3,14 @@ import csv
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def api():
-    return {
-        'userId':1,
-        'title': 'Flask React Application',
-        'completed': False
-    }
-
+#@app.route('/', methods=['GET'])
+#def api():
+    #return {
+        #'userId':1,
+        #'title': 'Flask React Application',
+        #'completed': False
+    #}
+@app.route('/')
 def home():
     return render_template("home.html")
 

@@ -62,5 +62,5 @@ def readArt(art):
 #     # most visited destinations
 
 # TESTING
-#readParks(parks)
-#readArt(art)
+readParks(parks)
+readArt(art)
