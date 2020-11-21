@@ -106,6 +106,10 @@ def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold
         firstPark = findFirstPark(parks, threshold, start)
         path.append(firstPark)
 
+    # First destination found based on preferences
+    # Now loop to create rest of path
+    # include randomness for variation??
+
     return path
 
 # def feedback():
