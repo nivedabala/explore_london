@@ -15,13 +15,15 @@
     <div id="root"></div>
 
     <script type="text/babel">
-
       class App extends React.Component {
         render() {
-          return <h1> Hi! </h1>
+          return (
+            <div class="banner">
+            <img id="logo" src="download.png" alt="London Logo"></img>
+            </div>
+          )
         }
-      }
-
+      };
       ReactDOM.render(<App />, document.getElementById('root'))
     </script>
   </body>

@@ -1,0 +1,12 @@
+.banner {
+    padding: 30px;
+    text-align: center;
+    background: #317D59;
+    color: black;
+    font-size: 10px;
+}
+
+#logo {
+    max-height: 100px;
+    width: auto;
+}
