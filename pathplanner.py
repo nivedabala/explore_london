@@ -58,8 +58,13 @@ def readArt(art):
 # def sortArt():
 #     # find nearest art
 
+# def plan():
+#     # create plan until path length = desired length
+
+
 # def feedback():
 #     # most visited destinations
+
 
 # TESTING
 #calcDist()
