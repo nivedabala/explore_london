@@ -29,8 +29,8 @@ def display():
     if request.method == 'POST':
         return redirect(url_for('home'))
 
-    return render_template('display')
+    return render_template('display.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='localhost')
+    app.run(debug=False, host='localhost',port=5001)
