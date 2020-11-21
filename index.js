@@ -1,12 +1,15 @@
 let map, infoWindow;
 
 function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 42.994, lng: -81.269 },
-    zoom: 15,
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    var london = new google.maps.LatLng(42.98424, -81.245277);
+    map = new google.maps.Map(document.getElementById("map"), {
+    center: london,
+    zoom: 14,
     styles: stylesArray,
-  });
-  
+  })
+  directionsRenderer.setMap(map);
 
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
@@ -37,6 +40,15 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
+
+
+  const onChangeHandler = function () {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  };
+  document.getElementById("start").addEventListener("change", onChangeHandler);
+  document.getElementById("end").addEventListener("change", onChangeHandler);
+  
+  
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -47,4 +59,26 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       : "Error: Your browser doesn't support geolocation."
   );
   infoWindow.open(map);
+}
+
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+directionsService.route(
+  {
+    origin: {
+      query: document.getElementById("start").value,
+    },
+    destination: {
+      query: document.getElementById("end").value,
+    },
+    travelMode: google.maps.TravelMode.DRIVING,
+  },
+  (response, status) => {
+    if (status === "OK") {
+      directionsRenderer.setDirections(response);
+    } else {
+      window.alert("Directions request failed due to " + status);
+    }
+  }
+);
 }

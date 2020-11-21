@@ -5,23 +5,28 @@ user_wants_parks = True
 user_wants_art = True
 user_wants_trees = True
 return_to_start = True
-total_distanceKM = 5
-destinations = []
+total_distanceM = 10000
+first_park_dist_threshold = 5000 # this is the max acceptable distance for the first park
+path = []
 art = {}
 parks = []
-#testing
-dest = '378 Horton St E, London, ON N6B 1L7'
-start_location = '111 Wharncliffe Rd S, London, ON N6J 2K2'
+# TESTING
+goal = '378 Horton St E, London, ON N6B 1L7'
+start = '111 Wharncliffe Rd S, London, ON N6J 2K2'
+# ONE TIME USE
+numClosestParks = 5 # number of closest parks to find for each park (walking distance)
 
-def calcDist():
-    # calculate distance between two places
-    r = requests.get(url + 'origins=' + start_location + '&mode=walking' +
-                   '&destinations=' + dest +
+
+def calcDist(start, goal):
+    # calculate walking distance between two places
+    r = requests.get(url + 'origins=' + start + '&mode=walking' +
+                   '&destinations=' + goal +
                    '&key=' + api_key)
     x = r.json() 
-    print(x)
-
-
+    # print(x)
+    # return the distance only (in metres)
+    return x["rows"][0]["elements"][0]["distance"]["value"] # /1000 to get km
+    
 def readParks(parks):
     # read in parks data
     with open('Parks.csv') as csv_file:
@@ -52,27 +57,35 @@ def readArt(art):
         print("file had %d lines" % line_count)
         print(art)
 
-# def sortParks():
-#     # find nearest parks
+def findFirstPark(parks, threshold, start_location):
+    # finds the first park in list that is in acceptable threshold
+    # returns the address of the park
+    # this may be very time consuming/costly (lots of api calls), use sparingly
+    for park in parks:
+        if calcDist(start_location, park) <= threshold:
+            return park
+    return("no parks within threshold")
 
-# def sortArt():
-#     # find nearest art
+# def closestParks(X, parks):
+#     # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
+#     # Finds the X closest parks to each park
+#     return
 
-# def plan():
-#     # create plan until path length = desired length
-
+def plan(path, wantsArt, wantsTrees, desiredLength):
+    # returns an ordered list of locations
+    # plans until pathLength == desiredLength
+    return path
 
 # def feedback():
 #     # most visited destinations
 
+# TESTING
+# print(calcDist(start, goal))
+# readParks(parks)
+# readArt(art)
 
 # TESTING
-<<<<<<< HEAD
-readParks(parks)
-readArt(art)
-=======
 #if __name__ == "__main__":
  #   calcDist()
   #  readParks(parks)
    # readArt(art)
->>>>>>> e7de75a6bacc81257ed5df5701905a96ed040f02
