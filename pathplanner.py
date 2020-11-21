@@ -67,6 +67,7 @@ def readArt(art):
 
 
 # TESTING
-#calcDist()
-#readParks(parks)
-#readArt(art)
+#if __name__ == "__main__":
+ #   calcDist()
+  #  readParks(parks)
+   # readArt(art)
