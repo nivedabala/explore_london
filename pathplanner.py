@@ -61,18 +61,24 @@ def readArt(art):
 # def plan():
 #     # create plan until path length = desired length
 
+# def closestParks():
+#     # RUN ONCE TO GENERATE SPREADSHEET
+#     # Finds the X closest parks to each park
+
+
+
 
 # def feedback():
 #     # most visited destinations
 
 
 # TESTING
-<<<<<<< HEAD
-readParks(parks)
-readArt(art)
-=======
+# calcDist()
+# readParks(parks)
+# readArt(art)
+
+# TESTING
 #if __name__ == "__main__":
  #   calcDist()
   #  readParks(parks)
    # readArt(art)
->>>>>>> e7de75a6bacc81257ed5df5701905a96ed040f02
