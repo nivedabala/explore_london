@@ -94,8 +94,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   }
   directionsService.route(
     {
-      origin: getLocation(),
-      destination: getLocation(),
+      origin: document.getElementById("start").value,
+      destination: document.getElementById("end").value,
       waypoints: waypts,
       optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.BICYCLING,
