@@ -18,9 +18,9 @@ start = '111 Wharncliffe Rd S, London, ON N6J 2K2'
 # ONE TIME USE
 # numClosestParks = 3  # number of closest parks to find for each park (walking distance)
 
-def checkInput(input):
+def checkInput(inputList):
     # check user input
-    if "Parks" in input:
+    if "Parks" in inputList:
         user_wants_parks = True
     return user_wants_parks
 
