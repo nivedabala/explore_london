@@ -67,39 +67,15 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-/*
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-directionsService.route(
-  {
-    origin: {
-      query: document.getElementById("start").value,
-    },
-    destination: {
-      query: document.getElementById("end").value,
-    },
-    travelMode: google.maps.TravelMode.DRIVING,
-  },
-  (response, status) => {
-    if (status === "OK") {
-      directionsRenderer.setDirections(response);
-    } else {
-      window.alert("Directions request failed due to " + status);
-    }
-  }
-);
-}*/
-
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   const waypts = [];
-  const checkboxArray = document.getElementById("waypoints");
+  const checkboxArray = ["1255 Western Rd, London, ON N6G 0N1", "339 Windermere Rd, London, ON N6A 5A5"];
 
   for (let i = 0; i < checkboxArray.length; i++) {
-    if (checkboxArray.options[i]) {
       waypts.push({
-        location: checkboxArray[i].value,
+        location: checkboxArray[i],
         stopover: true,
       });
-    }
   }
   directionsService.route(
     {
@@ -107,7 +83,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
       destination: document.getElementById("end").value,
       waypoints: waypts,
       optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode.DRIVING,
+      travelMode: google.maps.TravelMode.BICYCLING,
     },
     (response, status) => {
       if (status === "OK") {
