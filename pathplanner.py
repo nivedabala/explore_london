@@ -21,16 +21,11 @@ class Session:
         self.currentY = 0
 
     def main(self):
-        # TESTING
+
         self.checkInput()
         self.findCoords()
-        # print("test")
-
-        # self.checkInput()
-        # self.findCoords()
 
         return self.OptimizedgreedyPlan()
-
 
     def findCoords(self):
         geolocator = Nominatim(user_agent="test")
@@ -43,7 +38,6 @@ class Session:
         except:
             self.currentX = oldX
             self.currentY = oldY
-
 
     def checkInput(self):
         if "Parks" in self.userinput:
@@ -83,7 +77,6 @@ class Session:
 
         return distance  # in KM
 
-
     def readParks(self):
         # read in parks data, stores it as a list of address strings
         with open('newParks.csv') as csv_file:
@@ -99,7 +92,6 @@ class Session:
                     if (address != '') and (X != 0.0):
                         self.parks[address] = [address, X, Y]
                         line_count += 1
-
 
     def readArt(self):
         # read in art data, stores it as a list of address strings
@@ -117,7 +109,6 @@ class Session:
                         self.art[address] = [address, X, Y]
                         line_count += 1
 
-
     def calcDist(self, goal):
         # calculate walking distance between two places
         r = requests.get(self.url + 'origins=' + self.currentLocation + '&mode=walking' + '&destinations=' + goal + '&key=' + self.api_key)
@@ -130,7 +121,6 @@ class Session:
             return 10000000000
         # return the distance only (in metres)
         return x["rows"][0]["elements"][0]["distance"]["value"] / 1000  # /1000 to get km
-
 
     def FindNearestCordPark(self):
         distToBeat = 1000000000  # in KM
@@ -149,7 +139,6 @@ class Session:
         self.currentX = nearestParkx
         self.currentY = nearestParky
 
-
     def OptimizedgreedyPlan(self):
         # trying the greedyplanner, but calculates closest goal using coordinates
         self.path.append(self.currentLocation)  # adds the start address
@@ -159,10 +148,9 @@ class Session:
 
         return self.path
 
-
-
-# def feedback():
-#     # most visited destinations
+    # def feedback(self):
+    #     # most visited destinations
+    #     pass
 
 
 # print(Session(["Parks"], "30").main())
