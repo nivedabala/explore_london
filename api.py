@@ -18,7 +18,7 @@ app.config['UPLOAD_FOLDER'] = PICTURE_FOLDER
 # }
 @app.route('/')
 def home():
-    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
+    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'explore.png')
     return render_template("home.html", user_image = full_filename)
 
 
@@ -27,7 +27,7 @@ def questions():
     if request.method == 'POST':
         return redirect(url_for('home'))
 
-    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
+    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'explore.png')
     return render_template('questions.html', user_image = full_filename)
 
 
