@@ -127,4 +127,4 @@ def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold
 #     readArt(art)
 
 def addTwo(distance):
-    return distance + 2
+    return distance +"test"

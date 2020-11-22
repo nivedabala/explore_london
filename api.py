@@ -39,11 +39,9 @@ def display():
         sights = request.form.getlist('sight')
         newdist = addTwo(distance)
 
-
-
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
     return render_template('display.html', user_image = full_filename, distance = newdist, sights=sights)
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='localhost',port=5001)
+    app.run(debug=True, host='localhost',port=5001)
