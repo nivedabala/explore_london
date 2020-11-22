@@ -124,6 +124,9 @@ class Session:
 
     def FindNearestCordPark(self):
         distToBeat = 1000000000  # in KM
+        nearestPark = ''
+        nearestParkx = ''
+        nearestParky = ''
         for parkADR, lis in self.parks.items():
             dist = self.coorDistance(parkADR, 'Park')
             if ((dist < distToBeat) and (parkADR not in self.path)):
@@ -141,6 +144,9 @@ class Session:
 
     def FindNearestCordArt(self):
         distToBeat = 1000000000  # in KM
+        nearestArt = ''
+        nearestArtx = ''
+        nearestArty = ''
         for artADR, lis in self.art.items():
             dist = self.coorDistance(artADR, 'Art')
             if ((dist < distToBeat) and (artADR not in self.path)):
@@ -186,4 +192,4 @@ class Session:
 # print(Session(["Art"], "30").main())
 # print(Session(["Art", "Parks"], "30").main())
 # print(Session(["Art", "Parks"], "30").main())
-# print(Session(["Art", "Parks"], "30").main())
+print(Session(["Parks"], "7").main())
