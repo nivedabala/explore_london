@@ -12,10 +12,11 @@ class Session:
         self.userinput = userinput
 
     def main(self):
+        return "TEST FUNCTION distance is " + str(self.distance)
         self.test()
 
     def test(self):
-        return "TEST FUNCTION distance is " + self.distance
+        return "TEST FUNCTION distance is " + str(self.distance)
 # user_wants_art = False
 # user_wants_trees = False
 # return_to_start = True
