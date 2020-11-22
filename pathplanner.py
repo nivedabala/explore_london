@@ -14,15 +14,30 @@ class Session:
         self.pathlength = 0  # the walking distance of the generated path
         self.parks = {}
         self.userinput = userinput
-        self.start = '1151 Richmond St, London, ON N6A 3K7'
+        self.currentLocation = '1151 Richmond St, London, ON N6A 3K7'
+        self.currentX = 0
+        self.currentY = 0
 
     def main(self):
         # TESTING
 
         self.checkInput()
+        self.findCoords()
 
         return
         #return self.greedyPlan()
+
+    def findCoords(self):
+        geolocator = Nominatim(user_agent="test")
+        location = geolocator.geocode(self.currentLocation)
+        oldX = self.currentX
+        oldY = self.currentY
+        try:
+            self.currentX = location.longitude
+            self.currentY = location.latitude
+        except:
+            self.currentX = oldX
+            self.currentY = oldY
 
     # def addCoords(self):
     #     rows = [[]]
@@ -55,15 +70,66 @@ class Session:
 
     #     return
 
+    def addArtCoords(self):
+        rows = [[]]
+        with open('Parks.csv') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            line_count = 0
+            for row in csv_reader:
+                address = row[0]
+                rows.append([address, 0, 0])
+                line_count += 1
+        #print(rows)
+
+        with open('newParks.csv', 'wt', newline='') as outf:
+            csv_writer = csv.writer(outf, delimiter=',')
+            geolocator = Nominatim(user_agent="test")
+            for i in range(2, line_count):
+                addressSTR = rows[i][0]
+                # print(addressSTR)
+                location = geolocator.geocode(addressSTR)
+                try:
+                    X = location.longitude
+                    Y = location.latitude
+                except:
+                    X = 0
+                    Y = 0
+                print([addressSTR, X, Y])
+                rows[i] = [addressSTR, X, Y]
+            print(rows)
+            csv_writer.writerows(rows)
+
+        return
+
     def checkInput(self):
         if "Parks" in self.userinput:
             self.user_wants_parks = True
             self.readParks()
         if "Art" in self.userinput:
             self.user_wants_art = True
+            self.readArt()
 
     def readParks(self):
         # read in parks data, stores it as a list of address strings
+        with open('newParks.csv') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            line_count = 0
+            for row in csv_reader:
+                if line_count == 0:
+                    line_count += 1
+                else:
+                    # add address to parks[]
+                    address = row[0]
+                    X = float(row[1])
+                    Y = float(row[2])
+                    if (address != '') and (X != 0.0):
+                        self.parks[address] = [address, X, Y]
+                        line_count += 1
+            # print("file had %d lines" % line_count)
+            # print(parks)
+
+    def readArt(self):
+        # read in art data, stores it as a list of address strings
         with open('newParks.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 0
