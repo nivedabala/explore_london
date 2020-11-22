@@ -1,7 +1,6 @@
 import csv
 import requests
 import json
-import googlemaps
 import math
 from geopy.geocoders import Nominatim
 class Session:
