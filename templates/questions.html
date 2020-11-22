@@ -19,8 +19,69 @@
   <body>
 
     <form name="question_form" class="form-center" action="{{ url_for('index') }}" method = "POST">
-        <p>What do you want to see today?</p> 
 
+        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+          <div class="card-header"> <h2>What do you want to see on today's route?</h2></div>
+          <div class="card-body">
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="sight" id="choice1" value="option1" checked>
+          <label class="form-check-label" for="choice1">
+            <button type="button" class="btn btn-light btn-lg btn-block"><img src="../static/picture_photo/tree.png" width="50" height="50"> &nbsp;Trees &nbsp;</button>
+          </label>
+        </div>
+        &nbsp;
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="sight" id="choice2" value="option2">
+          <label class="form-check-label" for="choice2">
+            <button type="button" class="btn btn-light btn-lg btn-block"> <img src="../static/picture_photo/bench.png" width="50" height="50">Parks</button>
+          </label>
+        </div>
+        &nbsp;
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="sight" id="choice3" value="option3">
+          <label class="form-check-label" for="choice3">
+            <button type="button" class="btn btn-light btn-lg btn-block" ><img src="../static/picture_photo/path.png" width="50" height="50">Trails</button>
+          </label>
+        </div>
+        &nbsp;
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="sight" id="choice4" value="option4">
+          <label class="form-check-label" for="choice4">
+            <button type="button" class="btn btn-light btn-lg btn-block"><img src="../static/picture_photo/art.png" width="50" height="50"> Public Art</button>
+          </label>
+        </div>
+        &nbsp;
+
+        <!--
+        <label for="customRange3">Example range</label>
+        <input type="range" class="custom-range" min="0" max="5" step="1" id="customRange3">  
+
+        <p>How far do you want to go?</p> 
+        -->
+
+        <h4> How far do you want to go ?</h4>
+        
+        <input type="radio" id="range1" name="distance" value="1">
+            <label for="choice1"> 0 - 1 km</label><br>
+            <input type="radio" id="range2" name="distance" value="2">
+        <label for="choice2"> 1 - 3 km</label><br>  
+          <input type="radio" id="range3" name="distance" value="4">
+          <label for="choice3"> 3 - 5 km</label><br>
+        <input type="radio" id="range4" name="distance" value="5">
+          <label for="choice4"> 5 - 7 km</label><br>  
+        
+        <input type="radio" id="range4" name="distance" value="7">
+        
+          <label for="choice4"> 7 - 10 km</label><br> 
+          <input type="submit" value="Submit">
+
+      </div>
+      </div>
+        
+    </form>
+
+    <!--
         <input type="checkbox" id="choice1" name="sight" value="Trees">
         <label for="choice1"> I want to see TREES</label><br>
         <input type="checkbox" id="choice2" name="sight" value="Parks">
@@ -30,24 +91,12 @@
         <input type="checkbox" id="choice4" name="sight" value="Art">
         <label for="choice4"> I want to see PUBLIC ART</label><br>      
         
-        <p>How far do you want to go?</p> 
-        
-        <input type="radio" id="range1" name="distance" value="1">
-        <label for="choice1"> 0 - 1 km</label><br>
-        <input type="radio" id="range2" name="distance" value="2">
-        <label for="choice2"> 1 - 3 km</label><br>  
-        <input type="radio" id="range3" name="distance" value="4">
-        <label for="choice3"> 3 - 5 km</label><br>
-        <input type="radio" id="range4" name="distance" value="5">
-        <label for="choice4"> 5 - 7 km</label><br>  
-        <input type="radio" id="range4" name="distance" value="7">
-        <label for="choice4"> 7 - 10 km</label><br>  
-        
-        
-        <input type="submit" value="Submit">
-        
-    </form>
+        -->
 
+         
+        
+        
+    
     
 
   </body>

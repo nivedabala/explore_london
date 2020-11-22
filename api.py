@@ -34,8 +34,8 @@ def questions():
 @app.route("/index", methods=['GET', 'POST'])
 def index():
     locations = []
-    if request.method == 'GET':
-        locations = ["54 clifford fairbarn dr, ONT", "36 peter miller st, ONT", "12 christie str, ONT"]
+    #if request.method == 'GET':
+     #   locations = ["54 clifford fairbarn dr, ONT", "36 peter miller st, ONT", "12 christie str, ONT"]
 
     if request.method == 'POST':
         distance = request.form['distance']

@@ -46,6 +46,20 @@ function initMap() {
     }
   });
 
+  function getLocation() {
+    let position;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        position = pos;
+      },
+    );
+    return position;
+  } 
+
 
   const onChangeHandler = function () {
     calculateAndDisplayRoute(directionsService, directionsRenderer);
@@ -68,6 +82,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+  
   const waypts = [];
   const checkboxArray = document.getElementById("waypoints");
 
