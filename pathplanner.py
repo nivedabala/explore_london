@@ -4,7 +4,7 @@ import json
 url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
 user_wants_parks = True
-user_wants_art = True
+user_wants_art = False
 user_wants_trees = True
 return_to_start = True
 total_distanceM = 10000
@@ -42,92 +42,113 @@ def readParks(parks):
         # print("file had %d lines" % line_count)
         # print(parks)
 
-def readArt(art):
-    # read in art data
-    with open('Public_Art.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for row in csv_reader:
-            if line_count == 0:
-                line_count += 1
-            else:
-                # add name and address to art{}
-                art[row[3]] = row[5]
-                line_count += 1
-        # print("file had %d lines" % line_count)
-        # print(art)
+# def readArt(art):
+#     # read in art data
+#     with open('Public_Art.csv') as csv_file:
+#         csv_reader = csv.reader(csv_file, delimiter=',')
+#         line_count = 0
+#         for row in csv_reader:
+#             if line_count == 0:
+#                 line_count += 1
+#             else:
+#                 # add name and address to art{}
+#                 art[row[3]] = row[5]
+#                 line_count += 1
+#         # print("file had %d lines" % line_count)
+#         # print(art)
 
-def findFirstPark(parks, threshold, start_location):
-    # finds the first park in list that is in acceptable threshold
-    # returns the address of the park
-    # this may be very time consuming/costly (lots of api calls), use sparingly
-    for park in parks:
-        if calcDist(start_location, park) <= threshold:
-            return park
-    return("no parks within threshold")
+# def findFirstPark(parks, threshold, start_location):
+#     # finds the first park in list that is in acceptable threshold
+#     # returns the address of the park
+#     # this may be very time consuming/costly (lots of api calls), use sparingly
+#     for park in parks:
+#         if calcDist(start_location, park) <= threshold:
+#             return park
+#     return("no parks within threshold")
 
-def findNearestArt(art, start):
+# def findNearestArt(art, start, path, pathLength):
+#     distanceToBeat = 100000000
+#     for name, address in art:
+#         dist = calcDist(start, name + ' ' + address)
+#         if dist <= distanceToBeat:
+#             nearestArt = name + address
+#             distanceToBeat = dist
+
+#     return nearestArt
+
+def findNearestPark(parks, start, path, pathlength):
     distanceToBeat = 100000000
-    for a in art:
-        dist = calcDist(start, a)
-        if dist <= distanceToBeat:
-            nearestArt = a
+    for park in parks:
+        dist = calcDist(start, park)
+        if (dist <= distanceToBeat) and (park not in path):
+            nearestPark = park
             distanceToBeat = dist
+    pathlength += distanceToBeat
+    return nearestPark
 
-    return nearestArt
-
-def closestParks(X, parks):
-    # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
-    # Finds the X closest parks to each park
-    # Finds the distance between the found parks and the OG park
-
-
-    for OGpark in parks:
-        for otherPark in parks:
-            if (OGpark != otherPark):
-                # check distance
-                dist = calcDist(OGpark, otherPark)
-        smallest = 0
-        secondSmallest = 0
-        thirdSmallest = 0
-
-    row_list = [[]]
-
-    with open('ClosestParks.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerows()
-
-    return
-
-def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold):
-    # returns an ordered list of locations
-    # plans until pathLength == desiredLength
-
-    # find first park or art depending on choices and start location
-    # if both are selected, choose closeset one
-    if (wantsArt and wantsTrees):
-        # find a park within threshold
-        firstPark = findFirstPark(parks, threshold, start)
-        # find the nearest art
-        firstArt = findNearestArt(art, start)
-        if calcDist(start, firstPark) > calcDist(start, firstArt):
-            path.append(firstArt)
-        else:
-            path.append(firstPark)
-    elif (wantsArt and not wantsTrees):
-        # find the nearest art
-        firstArt = findNearestArt(art, start)
-        path.append(firstArt)
-    elif (not wantsArt and wantsTrees):
-        # find a park within threshold
-        firstPark = findFirstPark(parks, threshold, start)
-        path.append(firstPark)
-
-    # First destination found based on preferences
-    # Now loop to create rest of path
-    # include randomness for variation??
+def greedyPlan(path, wantsArt, wantsParks, desiredLength, start, parks, art):
+    # simple pathfinder, not efficient, but returns "best" path
+    pathlength = 0
+    if (wantsParks and not wantsArt):
+        while pathlength < desiredLength:
+            nextStop = findNearestPark(parks, start, path, pathlength)
+            start = nextStop
+            path.append(nextStop))
 
     return path
+
+# def closestParks(X, parks):
+#     # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
+#     # Finds the X closest parks to each park
+#     # Finds the distance between the found parks and the OG park
+
+
+#     for OGpark in parks:
+#         for otherPark in parks:
+#             if (OGpark != otherPark):
+#                 # check distance
+#                 dist = calcDist(OGpark, otherPark)
+#         smallest = 0
+#         secondSmallest = 0
+#         thirdSmallest = 0
+
+#     row_list = [[]]
+
+#     with open('ClosestParks.csv', 'w', newline='') as file:
+#         writer = csv.writer(file)
+#         writer.writerows()
+
+#     return
+
+# def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold):
+#     # returns an ordered list of locations
+#     # plans until pathLength == desiredLength
+
+#     # find first park or art depending on choices and start location
+#     # if both are selected, choose closeset one
+#     if (wantsArt and wantsTrees):
+#         # find a park within threshold
+#         firstPark = findFirstPark(parks, threshold, start)
+#         # find the nearest art
+#         firstArt = findNearestArt(art, start)
+#         if calcDist(start, firstPark) > calcDist(start, firstArt):
+#             path.append(firstArt)
+#         else:
+#             path.append(firstPark)
+#     elif (wantsArt and not wantsTrees):
+#         # find the nearest art
+#         firstArt = findNearestArt(art, start)
+#         path.append(firstArt)
+#     elif (not wantsArt and wantsTrees):
+#         # find a park within threshold
+#         firstPark = findFirstPark(parks, threshold, start)
+#         path.append(firstPark)
+
+#     # First destination found based on preferences
+#     # Now loop to create rest of path
+#     # include randomness for variation??
+
+#     return path
 
 # def feedback():
 #     # most visited destinations
