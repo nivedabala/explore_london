@@ -32,10 +32,10 @@ def questions():
 @app.route("/display", methods=['GET', 'POST'])
 def display():
     if request.method == 'POST':
-        return redirect(url_for('home'))
+        distance = request.form['distance']
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('display.html', user_image = full_filename)
+    return render_template('display.html', user_image = full_filename, distance = distance)
 
 
 if __name__ == '__main__':
