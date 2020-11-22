@@ -80,6 +80,23 @@ def closestParks(X, parks):
     # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
     # Finds the X closest parks to each park
     # Finds the distance between the found parks and the OG park
+
+
+    for OGpark in parks:
+        for otherPark in parks:
+            if (OGpark != otherPark):
+                # check distance
+                dist = calcDist(OGpark, otherPark)
+        smallest = 0
+        secondSmallest = 0
+        thirdSmallest = 0
+
+    row_list = [[]]
+
+    with open('ClosestParks.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows()
+
     return
 
 def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold):
@@ -114,6 +131,7 @@ def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold
 
 # def feedback():
 #     # most visited destinations
+
 
 # TESTING
 # print(calcDist(start, goal))
