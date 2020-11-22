@@ -1,52 +1,66 @@
 import csv
 import requests
 import json
-url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
-api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
-user_wants_parks = False
+class Session:
+    def __init__(self):
+        self.url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
+        self.api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
+        self.user_wants_parks = False
+        self.distance = 10000
+        self.path = []
+        self.parks = []
+
+    def main(self):
+        print("MAIN FUNCTION")
+
+    def test(self):
+        print("TEST FUNTION")
 # user_wants_art = False
 # user_wants_trees = False
 # return_to_start = True
-total_distanceM = 10000
+# total_distanceM = 10000
 # first_park_dist_threshold = 5000  # this is the max acceptable distance for the first park
-path = []
+# path = []
 # art = {}
-parks = []
+# parks = []
 # TESTING
-goal = '378 Horton St E, London, ON N6B 1L7'
-start = '111 Wharncliffe Rd S, London, ON N6J 2K2'
+# goal = '378 Horton St E, London, ON N6B 1L7'
+# start = '111 Wharncliffe Rd S, London, ON N6J 2K2'
 # ONE TIME USE
 # numClosestParks = 3  # number of closest parks to find for each park (walking distance)
 
-def checkInput(inputList):
-    user_wants_parks = False
-    # check user input
-    if "Parks" in inputList:
-        user_wants_parks = True
-    return user_wants_parks
+# def main():
 
-def calcDist(start, goal):
-    # calculate walking distance between two places
-    r = requests.get(url + 'origins=' + start + '&mode=walking' + '&destinations=' + goal + '&key=' + api_key)
-    x = r.json()
-    # print(x)
-    # return the distance only (in metres)
-    return x["rows"][0]["elements"][0]["distance"]["value"]  # /1000 to get km
 
-def readParks(parks):
-    # read in parks data, stores it as a list of address strings
-    with open('Parks.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for row in csv_reader:
-            if line_count == 0:
-                line_count += 1
-            else:
-                # add address to parks[]
-                parks.append(row[2])
-                line_count += 1
-        # print("file had %d lines" % line_count)
-        # print(parks)
+# def checkInput(inputList):
+#     user_wants_parks = False
+#     # check user input
+#     if "Parks" in inputList:
+#         user_wants_parks = True
+#     return user_wants_parks
+
+# def calcDist(start, goal):
+#     # calculate walking distance between two places
+#     r = requests.get(url + 'origins=' + start + '&mode=walking' + '&destinations=' + goal + '&key=' + api_key)
+#     x = r.json()
+#     # print(x)
+#     # return the distance only (in metres)
+#     return x["rows"][0]["elements"][0]["distance"]["value"]  # /1000 to get km
+
+# def readParks(parks):
+#     # read in parks data, stores it as a list of address strings
+#     with open('Parks.csv') as csv_file:
+#         csv_reader = csv.reader(csv_file, delimiter=',')
+#         line_count = 0
+#         for row in csv_reader:
+#             if line_count == 0:
+#                 line_count += 1
+#             else:
+#                 # add address to parks[]
+#                 parks.append(row[2])
+#                 line_count += 1
+#         # print("file had %d lines" % line_count)
+#         # print(parks)
 
 # def readArt(art):
 #     # read in art data
@@ -82,15 +96,15 @@ def readParks(parks):
 
 #     return nearestArt
 
-def findNearestPark(parks, start, path, pathlength):
-    distanceToBeat = 100000000
-    for park in parks:
-        dist = calcDist(start, park)
-        if (dist <= distanceToBeat) and (park not in path):
-            nearestPark = park
-            distanceToBeat = dist
-    pathlength += distanceToBeat
-    return nearestPark
+# def findNearestPark(parks, start, path, pathlength):
+#     distanceToBeat = 100000000
+#     for park in parks:
+#         dist = calcDist(start, park)
+#         if (dist <= distanceToBeat) and (park not in path):
+#             nearestPark = park
+#             distanceToBeat = dist
+#     pathlength += distanceToBeat
+#     return nearestPark
 
 #def greedyPlan(path, wantsArt, wantsParks, desiredLength, start, parks, art):
     # simple pathfinder, not efficient, but returns "best" path
@@ -170,6 +184,3 @@ def findNearestPark(parks, start, path, pathlength):
 #     calcDist()
 #     readParks(parks)
 #     readArt(art)
-
-def addTwo(distance):
-    return distance +"test"
