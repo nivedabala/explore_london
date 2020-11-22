@@ -31,8 +31,9 @@ def questions():
     return render_template('questions.html', user_image = full_filename)
 
 
-@app.route("/display", methods=['GET', 'POST'])
-def display():
+@app.route("/index", methods=['GET', 'POST'])
+def index():
+    api_source="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY&callback=initMap&libraries=&v=weekly"
     
     if request.method == 'POST':
         distance = request.form['distance']
@@ -41,7 +42,7 @@ def display():
 
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('display.html', user_image = full_filename, distance = distance, sights=sights)
+    return render_template('index.html', user_image = full_filename, api_src= api_source)
 
 
 if __name__ == '__main__':

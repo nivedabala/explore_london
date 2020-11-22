@@ -469,9 +469,9 @@
 
     </script>
     
-    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css')}}" />
     
-    <script src="../index.js"></script>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
   </head>
   <body>
     

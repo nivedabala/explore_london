@@ -22,21 +22,10 @@
     </div>
 
     
-<!--
-<form name="sights" class="form-center">
-        <input type="checkbox" id="choice1" name="choice1" value="Trees">
-        <label for="choice1"> I want to see TREES</label><br>
-        <input type="checkbox" id="choice2" name="choice2" value="Parks">
-        <label for="choice2"> I want to go to a PARK</label><br>  
-        <input type="checkbox" id="choice3" name="choice3" value="Trails">
-        <label for="choice3"> I want to visit a TRAIL</label><br>
-        <input type="checkbox" id="choice4" name="choice4" value="Art">
-        <label for="choice4"> I want to see PUBLIC ART</label><br>       
-    </form>
--->
+
     
 
-    <form name="question_form" class="form-center" action="{{ url_for('display') }}" method = "POST">
+    <form name="question_form" class="form-center" action="{{ url_for('index') }}" method = "GET">
         <p>What do you want to see today?</p> 
 
         <input type="checkbox" id="choice1" name="sight" value="Trees">
