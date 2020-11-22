@@ -7,7 +7,7 @@ class Session:
         self.api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
         self.user_wants_parks = False
         self.user_wants_art = False
-        self.desiredLength = int(distance)
+        self.desiredLength = int(distance) / 2
         self.path = []
         self.pathlength = 0
         self.parks = []
@@ -56,24 +56,24 @@ class Session:
         try:
             x["rows"][0]["elements"][0]["distance"]["value"] / 1000
         except:
+            # error in reading spreadsheet data, set weighting so point isnt used.
             return 10000000000
         # return the distance only (in metres)
         return x["rows"][0]["elements"][0]["distance"]["value"] / 1000  # /1000 to get km
 
     def addNearestPark(self):
-        distanceToBeat = 5
-        threshold = 5
+        threshold = 5  # Parks within X km are automatically added
         for park in self.parks:
             dist = self.calcDist(park)
             # print(dist)
-            if ((dist <= distanceToBeat) or (dist < threshold)) and (park not in self.path):
+            if (dist <= threshold) and (park not in self.path):  # if park is close enough and not visited
                 nearestPark = park
-                distanceToBeat = dist
-                break
-        self.path.append(nearestPark)
-        self.pathlength += distanceToBeat
-        self.start = nearestPark
-        return
+                if (self.pathlength + dist) <= (self.desiredLength):  # check if park overshoots
+                    self.pathlength += dist
+                    self.path.append(nearestPark)
+                    self.start = nearestPark
+                return
+
 
     def greedyPlan(self):
         # simple pathfinder, not efficient, but returns "best" path
@@ -81,8 +81,11 @@ class Session:
         if (self.user_wants_parks and not self.user_wants_art):
             while self.pathlength < self.desiredLength:
                 self.addNearestPark()
-                #print(self.pathlength)
-                #print(self.path)
+
+                # print(self.path)
+
+        self.pathlength += self.pathlength
+        print(self.pathlength)
         return self.path
 
 # user_wants_art = False
@@ -255,4 +258,4 @@ class Session:
 #     readParks(parks)
 #     readArt(art)
 
-print(Session(["Parks"], "5").main())
+print(Session(["Parks"], "20").main())
