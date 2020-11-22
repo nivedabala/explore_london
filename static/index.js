@@ -68,6 +68,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+  
   const waypts = [];
   const checkboxArray = document.getElementById("waypoints");
 
@@ -79,8 +80,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   }
   directionsService.route(
     {
-      origin: infoWindow.position,
-      destination: infoWindow.position,
+      origin: navigator.geolocation.getCurrentPosition(),
+      destination: navigator.geolocation.getCurrentPosition(),
       waypoints: waypts,
       optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.BICYCLING,
