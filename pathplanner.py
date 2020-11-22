@@ -2,20 +2,20 @@ import csv
 import requests
 import json
 class Session:
-    def __init__(self, userinput):
+    def __init__(self, userinput, distance):
         self.url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
         self.api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
         self.user_wants_parks = False
-        self.distance = 10000
+        self.distance = int(distance)
         self.path = []
         self.parks = []
         self.userinput = userinput
 
     def main(self):
-        return "MAIN FUNCTION"
+        self.test()
 
     def test(self):
-        return "TEST FUNCTION"
+        return "TEST FUNCTION distance is " + self.distance
 # user_wants_art = False
 # user_wants_trees = False
 # return_to_start = True
