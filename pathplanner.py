@@ -19,6 +19,7 @@ start = '111 Wharncliffe Rd S, London, ON N6J 2K2'
 # numClosestParks = 3  # number of closest parks to find for each park (walking distance)
 
 def checkInput(inputList):
+    user_wants_parks = False
     # check user input
     if "Parks" in inputList:
         user_wants_parks = True
@@ -91,16 +92,16 @@ def findNearestPark(parks, start, path, pathlength):
     pathlength += distanceToBeat
     return nearestPark
 
-def greedyPlan(path, wantsArt, wantsParks, desiredLength, start, parks, art):
+#def greedyPlan(path, wantsArt, wantsParks, desiredLength, start, parks, art):
     # simple pathfinder, not efficient, but returns "best" path
-    pathlength = 0
-    if (wantsParks and not wantsArt):
-        while pathlength < desiredLength:
-            nextStop = findNearestPark(parks, start, path, pathlength)
-            start = nextStop
-            path.append(nextStop))
+ #   pathlength = 0
+  #  if (wantsParks and not wantsArt):
+   #     while pathlength < desiredLength:
+    #        nextStop = findNearestPark(parks, start, path, pathlength)
+     #       start = nextStop
+      #      path.append(nextStop))
 
-    return path
+    #return path
 
 # def closestParks(X, parks):
 #     # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
