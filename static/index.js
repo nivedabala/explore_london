@@ -69,13 +69,13 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   const waypts = [];
-  const checkboxArray = ["1255 Western Rd, London, ON N6G 0N1", "339 Windermere Rd, London, ON N6A 5A5"];
+  const checkboxArray = document.getElementById("waypoints");
 
   for (let i = 0; i < checkboxArray.length; i++) {
-      waypts.push({
-        location: checkboxArray[i],
-        stopover: true,
-      });
+    waypts.push({
+      location: checkboxArray[i].value,
+      stopover: true,
+    });  
   }
   directionsService.route(
     {
