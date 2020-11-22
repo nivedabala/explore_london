@@ -33,16 +33,13 @@ def questions():
 
 @app.route("/index", methods=['GET', 'POST'])
 def index():
-    api_source="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY&callback=initMap&libraries=&v=weekly"
-    
-    if request.method == 'POST':
-        distance = request.form['distance']
-        sights = request.form.getlist('sight')
-        #something = Session(sights, distance).main()
+    locations = []
+    if request.method == 'GET':
+        locations = ["54 clifford fairbarn dr, ONT", "36 peter miller st, ONT"]
 
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('index.html', user_image = full_filename, api_src= api_source)
+    return render_template('index.html', user_image = full_filename, locations=locations)
 
 
 if __name__ == '__main__':
