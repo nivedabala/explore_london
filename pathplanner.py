@@ -13,6 +13,7 @@ class Session:
         self.path = []
         self.pathlength = 0  # the walking distance of the generated path
         self.parks = {}
+        self.art = {}
         self.userinput = userinput
         self.currentLocation = '1151 Richmond St, London, ON N6A 3K7'
         self.currentX = 0
@@ -20,11 +21,10 @@ class Session:
 
     def main(self):
         # TESTING
-
-        self.checkInput()
-        self.findCoords()
-
         return
+        # self.checkInput()
+        # self.findCoords()
+
         #return self.greedyPlan()
 
     def findCoords(self):
@@ -70,36 +70,38 @@ class Session:
 
     #     return
 
-    def addArtCoords(self):
-        rows = [[]]
-        with open('Parks.csv') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            line_count = 0
-            for row in csv_reader:
-                address = row[0]
-                rows.append([address, 0, 0])
-                line_count += 1
-        #print(rows)
+    # def addArtCoords(self):
+    #     rows = [[]]
+    #     with open('Public_Art.csv') as csv_file:
+    #         csv_reader = csv.reader(csv_file, delimiter=',')
+    #         line_count = 0
+    #         for row in csv_reader:
+    #             name = row[0]
+    #             address = row[1]
+    #             rows.append([name, address, 0, 0])
+    #             line_count += 1
+    #     #print(rows)
 
-        with open('newParks.csv', 'wt', newline='') as outf:
-            csv_writer = csv.writer(outf, delimiter=',')
-            geolocator = Nominatim(user_agent="test")
-            for i in range(2, line_count):
-                addressSTR = rows[i][0]
-                # print(addressSTR)
-                location = geolocator.geocode(addressSTR)
-                try:
-                    X = location.longitude
-                    Y = location.latitude
-                except:
-                    X = 0
-                    Y = 0
-                print([addressSTR, X, Y])
-                rows[i] = [addressSTR, X, Y]
-            print(rows)
-            csv_writer.writerows(rows)
+    #     with open('newArt.csv', 'wt', newline='') as outf:
+    #         csv_writer = csv.writer(outf, delimiter=',')
+    #         geolocator = Nominatim(user_agent="test")
+    #         for i in range(1, line_count):
+    #             addressSTR = rows[i][1]
+    #             name = rows[i][0]
+    #             # print(addressSTR)
+    #             location = geolocator.geocode(addressSTR)
+    #             try:
+    #                 X = location.longitude
+    #                 Y = location.latitude
+    #             except:
+    #                 X = 0
+    #                 Y = 0
+    #             print([name, addressSTR, X, Y])
+    #             rows[i] = [name, addressSTR, X, Y]
+    #         #print(rows)
+    #         csv_writer.writerows(rows)
 
-        return
+    #     return
 
     def checkInput(self):
         if "Parks" in self.userinput:
@@ -118,7 +120,6 @@ class Session:
                 if line_count == 0:
                     line_count += 1
                 else:
-                    # add address to parks[]
                     address = row[0]
                     X = float(row[1])
                     Y = float(row[2])
@@ -130,22 +131,21 @@ class Session:
 
     def readArt(self):
         # read in art data, stores it as a list of address strings
-        with open('newParks.csv') as csv_file:
+        with open('newArt.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 0
             for row in csv_reader:
                 if line_count == 0:
                     line_count += 1
                 else:
-                    # add address to parks[]
-                    address = row[0]
-                    X = float(row[1])
-                    Y = float(row[2])
+                    address = row[1]
+                    X = float(row[2])
+                    Y = float(row[3])
                     if (address != '') and (X != 0.0):
-                        self.parks[address] = [address, X, Y]
+                        self.art[address] = [address, X, Y]
                         line_count += 1
             # print("file had %d lines" % line_count)
-            # print(parks)
+            # print(art)
 
     def calcDist(self, goal):
         # calculate walking distance between two places
