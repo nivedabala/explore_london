@@ -37,11 +37,11 @@ def display():
     if request.method == 'POST':
         distance = request.form['distance']
         sights = request.form.getlist('sight')
-        something = Session(sights)
+        something = Session(sights, distance).main()
 
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('display.html', user_image = full_filename, distance = distance, sights=something)
+    return render_template('display.html', user_image = full_filename, distance = something, sights=sights)
 
 
 if __name__ == '__main__':
