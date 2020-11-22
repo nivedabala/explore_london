@@ -19,7 +19,7 @@
   <body>
 
     <form name="question_form" class="form-center" action="{{ url_for('index') }}" method = "GET">
-      
+
     <form name="question_form" class="form-center" action="{{ url_for('index') }}" method = "POST">
         <p>What do you want to see today?</p> 
 
@@ -28,28 +28,28 @@
           <div class="card-body">
 
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="choice1" value="option1" checked>
+          <input class="form-check-input" type="checkbox" name="sight" id="choice1" value="option1" checked>
           <label class="form-check-label" for="choice1">
             <button type="button" class="btn btn-light btn-lg btn-block"><img src="../static/picture_photo/tree.png" width="50" height="50"> &nbsp;Trees &nbsp;</button>
           </label>
         </div>
         &nbsp;
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="choice2" value="option2">
+          <input class="form-check-input" type="checkbox" name="sight" id="choice2" value="option2">
           <label class="form-check-label" for="choice2">
             <button type="button" class="btn btn-light btn-lg btn-block"> <img src="../static/picture_photo/bench.png" width="50" height="50">Parks</button>
           </label>
         </div>
         &nbsp;
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="choice3" value="option3">
+          <input class="form-check-input" type="checkbox" name="sight" id="choice3" value="option3">
           <label class="form-check-label" for="choice3">
             <button type="button" class="btn btn-light btn-lg btn-block" ><img src="../static/picture_photo/path.png" width="50" height="50">Trails</button>
           </label>
         </div>
         &nbsp;
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="choice4" value="option4">
+          <input class="form-check-input" type="checkbox" name="sight" id="choice4" value="option4">
           <label class="form-check-label" for="choice4">
             <button type="button" class="btn btn-light btn-lg btn-block"><img src="../static/picture_photo/art.png" width="50" height="50"> Public Art</button>
           </label>
