@@ -18,18 +18,10 @@
 
   <body>
 
-<<<<<<< HEAD
-    <form name="question_form" class="form-center" action="{{ url_for('index') }}" method = "GET">
-
-=======
-    
-      
->>>>>>> refs/remotes/origin/main
     <form name="question_form" class="form-center" action="{{ url_for('index') }}" method = "POST">
-        <p>What do you want to see today?</p> 
 
         <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-          <div class="card-header"> <h2>What are your goals for today's route?</h2></div>
+          <div class="card-header"> <h2>What do you want today's route?</h2></div>
           <div class="card-body">
 
         <div class="form-check">
@@ -67,19 +59,22 @@
 
         <p>How far do you want to go?</p> 
         -->
+
+        <h4> How far do you want to go ?</h4>
         
         <input type="radio" id="range1" name="distance" value="1">
-        <label for="choice1"> 0 - 1 km</label><br>
-        <input type="radio" id="range2" name="distance" value="2">
+            <label for="choice1"> 0 - 1 km</label><br>
+            <input type="radio" id="range2" name="distance" value="2">
         <label for="choice2"> 1 - 3 km</label><br>  
-        <input type="radio" id="range3" name="distance" value="4">
-        <label for="choice3"> 3 - 5 km</label><br>
+          <input type="radio" id="range3" name="distance" value="4">
+          <label for="choice3"> 3 - 5 km</label><br>
         <input type="radio" id="range4" name="distance" value="5">
-        <label for="choice4"> 5 - 7 km</label><br>  
+          <label for="choice4"> 5 - 7 km</label><br>  
+        
         <input type="radio" id="range4" name="distance" value="7">
-        <label for="choice4"> 7 - 10 km</label><br> 
-
-        <input type="submit" value="Submit">
+        
+          <label for="choice4"> 7 - 10 km</label><br> 
+          <input type="submit" value="Submit">
 
       </div>
       </div>
