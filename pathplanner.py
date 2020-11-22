@@ -6,17 +6,75 @@ class Session:
         self.url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
         self.api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
         self.user_wants_parks = False
-        self.distance = int(distance)
+        self.user_wants_art = False
+        self.desiredLength = int(distance)
         self.path = []
+        self.pathlength = 0
         self.parks = []
         self.userinput = userinput
+        self.start = '1151 Richmond St, London, ON N6A 3K7'
 
     def main(self):
-        return "TEST FUNCTION distance is " + str(self.distance)
-        self.test()
+        # TESTING
+        # print(self.calcDist('378 Horton St E, London, ON N6B 1L7'))
+        # self.readParks()
+        # print(self.parks)
+        # return
 
-    def test(self):
-        return "TEST FUNCTION distance is " + str(self.distance)
+        # Returns path
+        self.checkInput()
+        return self.greedyPlan()
+
+    def checkInput(self):
+        if "Parks" in self.userinput:
+            self.user_wants_parks = True
+            self.readParks()
+        if "Art" in self.userinput:
+            self.user_wants_art = True
+
+    def readParks(self):
+        # read in parks data, stores it as a list of address strings
+        with open('Parks.csv') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            line_count = 0
+            for row in csv_reader:
+                if line_count == 0:
+                    line_count += 1
+                else:
+                    # add address to parks[]
+                    if (row[2] != ''):
+                        self.parks.append(row[2])
+                        line_count += 1
+            # print("file had %d lines" % line_count)
+            # print(parks)
+
+    def calcDist(self, goal):
+        # calculate walking distance between two places
+        r = requests.get(self.url + 'origins=' + self.start + '&mode=walking' + '&destinations=' + goal + '&key=' + self.api_key)
+        x = r.json()
+        # print(x)
+        # return the distance only (in metres)
+        return x["rows"][0]["elements"][0]["distance"]["value"] / 1000  # /1000 to get km
+
+    def addNearestPark(self):
+        distanceToBeat = 100000000
+        for park in self.parks:
+            dist = self.calcDist(park)
+            if (dist <= distanceToBeat) and (park not in self.path):
+                nearestPark = park
+                distanceToBeat = dist
+        self.path.append(nearestPark)
+        self.pathlength += distanceToBeat
+        self.start = nearestPark
+        return
+
+    def greedyPlan(self):
+        # simple pathfinder, not efficient, but returns "best" path
+        if (self.user_wants_parks and not self.user_wants_art):
+            while self.pathlength < self.desiredLength:
+                self.addNearestPark()
+        return self.path
+
 # user_wants_art = False
 # user_wants_trees = False
 # return_to_start = True
@@ -186,3 +244,4 @@ class Session:
 #     calcDist()
 #     readParks(parks)
 #     readArt(art)
+Session(["Parks"], "5").main()
