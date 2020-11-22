@@ -37,7 +37,7 @@ def display():
     if request.method == 'POST':
         distance = request.form['distance']
         sights = request.form.getlist('sight')
-        something = Session(sights).main()
+        something = Session(sights)
 
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
