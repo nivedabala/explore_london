@@ -2,6 +2,7 @@ import csv
 import requests
 import json
 import googlemaps
+import math
 from geopy.geocoders import Nominatim
 class Session:
     def __init__(self, userinput, distance):
@@ -21,6 +22,7 @@ class Session:
 
     def main(self):
         # TESTING
+        print("test")
         return
         # self.checkInput()
         # self.findCoords()
@@ -111,6 +113,37 @@ class Session:
             self.user_wants_art = True
             self.readArt()
 
+    def coorDistance(self, goal, type):  # goal is the address of a park or art
+        x1 = self.currentX
+        y1 = self.currentY
+        if type == 'Park':
+            x2 = self.parks[goal][1]
+            y2 = self.parks[goal][2]
+        else:  # art
+            x2 = self.art[goal][1]
+            y2 = self.art[goal][2]
+
+        # convert to km
+        y1Lat = y1
+        y2Lat = y2
+        y1 = y1 * 110.574
+        y2 = y2 * 110.574
+        degrees1 = math.cos(y1Lat) * (180.0 / math.pi)
+        degrees2 = math.cos(y2Lat) * (180.0 / math.pi)
+        oneDegreeInKM = (111.320 * degrees1)
+        oneDegreeInKM2 = (111.320 * degrees2)
+
+        x1 = x1 * oneDegreeInKM
+        x2 = x2 * oneDegreeInKM2
+
+        # find distance straight-line
+        distance = math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
+        # find distance manhattan
+        # distance =
+
+        return distance
+
+
     def readParks(self):
         # read in parks data, stores it as a list of address strings
         with open('newParks.csv') as csv_file:
@@ -126,8 +159,6 @@ class Session:
                     if (address != '') and (X != 0.0):
                         self.parks[address] = [address, X, Y]
                         line_count += 1
-            # print("file had %d lines" % line_count)
-            # print(parks)
 
     def readArt(self):
         # read in art data, stores it as a list of address strings
@@ -144,8 +175,6 @@ class Session:
                     if (address != '') and (X != 0.0):
                         self.art[address] = [address, X, Y]
                         line_count += 1
-            # print("file had %d lines" % line_count)
-            # print(art)
 
     def calcDist(self, goal):
         # calculate walking distance between two places
