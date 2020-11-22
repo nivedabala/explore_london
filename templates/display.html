@@ -17,19 +17,12 @@
 
   <body>
     <div class="banner">
-      <img id="logo" src="../download.png" alt="London Logo"></img>
+      <img id="logo" src="{{ user_image }}" alt="London Logo"></img>
     </div>
 
-    <table>
-        % for key, value in display.items() %}
+    {{ distance }}
+    {{ sights }}
 
-        <tr>
-          <th> {{ key }}</th>
-          <td> {{ value }}</td>
-        </tr>
-
-      </table>
-
-    <div id="root"></div>
+    
   </body>
 </html>

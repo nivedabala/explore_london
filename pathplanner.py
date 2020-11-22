@@ -66,9 +66,20 @@ def findFirstPark(parks, threshold, start_location):
             return park
     return("no parks within threshold")
 
+def findNearestArt(art, start):
+    distanceToBeat = 100000000
+    for a in art:
+        dist = calcDist(start, a)
+        if dist <= distanceToBeat:
+            nearestArt = a
+            distanceToBeat = dist
+
+    return nearestArt
+
 def closestParks(X, parks):
     # RUN ONCE TO GENERATE SPREADSHEET (lots of api calls)
     # Finds the X closest parks to each park
+    # Finds the distance between the found parks and the OG park
     return
 
 def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold):
@@ -78,14 +89,26 @@ def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold
     # find first park or art depending on choices and start location
     # if both are selected, choose closeset one
     if (wantsArt and wantsTrees):
-        # stuff
-        return
+        # find a park within threshold
+        firstPark = findFirstPark(parks, threshold, start)
+        # find the nearest art
+        firstArt = findNearestArt(art, start)
+        if calcDist(start, firstPark) > calcDist(start, firstArt):
+            path.append(firstArt)
+        else:
+            path.append(firstPark)
     elif (wantsArt and not wantsTrees):
-        # stuff
-        return
+        # find the nearest art
+        firstArt = findNearestArt(art, start)
+        path.append(firstArt)
     elif (not wantsArt and wantsTrees):
-        firstgoal = findFirstPark(parks, threshold, start)
-        path.append(firstgoal)
+        # find a park within threshold
+        firstPark = findFirstPark(parks, threshold, start)
+        path.append(firstPark)
+
+    # First destination found based on preferences
+    # Now loop to create rest of path
+    # include randomness for variation??
 
     return path
 
@@ -98,7 +121,10 @@ def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold
 # readArt(art)
 
 # TESTING
-#if __name__ == "__main__":
- #   calcDist()
-  #  readParks(parks)
-   # readArt(art)
+# if __name__ == "__main__":
+#     calcDist()
+#     readParks(parks)
+#     readArt(art)
+
+def addTwo(distance):
+    return distance + 2
