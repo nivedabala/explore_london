@@ -3,21 +3,26 @@ import requests
 import json
 url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
-user_wants_parks = True
-user_wants_art = False
-user_wants_trees = True
-return_to_start = True
+user_wants_parks = False
+# user_wants_art = False
+# user_wants_trees = False
+# return_to_start = True
 total_distanceM = 10000
-first_park_dist_threshold = 5000  # this is the max acceptable distance for the first park
+# first_park_dist_threshold = 5000  # this is the max acceptable distance for the first park
 path = []
-art = {}
+# art = {}
 parks = []
 # TESTING
 goal = '378 Horton St E, London, ON N6B 1L7'
 start = '111 Wharncliffe Rd S, London, ON N6J 2K2'
 # ONE TIME USE
-numClosestParks = 3  # number of closest parks to find for each park (walking distance)
+# numClosestParks = 3  # number of closest parks to find for each park (walking distance)
 
+def checkInput(input):
+    # check user input
+    if "Parks" in input:
+        user_wants_parks = True
+    return user_wants_parks
 
 def calcDist(start, goal):
     # calculate walking distance between two places
@@ -28,7 +33,7 @@ def calcDist(start, goal):
     return x["rows"][0]["elements"][0]["distance"]["value"]  # /1000 to get km
 
 def readParks(parks):
-    # read in parks data
+    # read in parks data, stores it as a list of address strings
     with open('Parks.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
