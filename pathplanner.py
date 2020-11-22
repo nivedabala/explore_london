@@ -52,7 +52,7 @@ class Session:
         # calculate walking distance between two places
         r = requests.get(self.url + 'origins=' + self.start + '&mode=walking' + '&destinations=' + goal + '&key=' + self.api_key)
         x = r.json()
-        # print(x)
+        print(x)
         # return the distance only (in metres)
         return x["rows"][0]["elements"][0]["distance"]["value"] / 1000  # /1000 to get km
 
