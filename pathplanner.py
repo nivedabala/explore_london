@@ -166,4 +166,4 @@ def greedyPlan(path, wantsArt, wantsParks, desiredLength, start, parks, art):
 #     readArt(art)
 
 def addTwo(distance):
-    return distance + 2
+    return distance +"test"
