@@ -184,6 +184,6 @@ class Session:
 
 # print(Session(["Parks"], "30").main())
 # print(Session(["Art"], "30").main())
-print(Session(["Art", "Parks"], "30").main())
-print(Session(["Art", "Parks"], "30").main())
-print(Session(["Art", "Parks"], "30").main())
+# print(Session(["Art", "Parks"], "30").main())
+# print(Session(["Art", "Parks"], "30").main())
+# print(Session(["Art", "Parks"], "30").main())
