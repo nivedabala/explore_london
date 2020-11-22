@@ -7,7 +7,7 @@ PICTURE_FOLDER = os.path.join('static', 'picture_photo')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = PICTURE_FOLDER
 
-from pathplanner import checkInput
+from pathplanner import Session
 
 # @app.route('/', methods=['GET'])
 # def api():
@@ -33,14 +33,15 @@ def questions():
 
 @app.route("/display", methods=['GET', 'POST'])
 def display():
-    truth = ""
+    
     if request.method == 'POST':
         distance = request.form['distance']
         sights = request.form.getlist('sight')
-        truth = checkInput(sights)
+        something = Session(sights).main()
+
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('display.html', user_image = full_filename, distance = distance, sights=truth)
+    return render_template('display.html', user_image = full_filename, distance = distance, sights=something)
 
 
 if __name__ == '__main__':
