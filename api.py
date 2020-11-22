@@ -39,4 +39,4 @@ def display():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='localhost',port=5001)
+    app.run(debug=False, host='localhost',port=5002)
