@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../layout.css">
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/layout.css') }}">
 
     <title>Home Page</title>
 
@@ -17,19 +17,16 @@
 
   <body>
     <div class="banner">
-      <img id="logo" src="../download.png" alt="London Logo"></img>
+      <img id="logo" src="{{ user_image }}" alt="London Logo"></img>
     </div>
 
+<<<<<<< HEAD
     <table>
         {% for key, value in display.items() %}
+=======
+    {{ distance }}
+>>>>>>> 935bcd5b33fd3dc9bc2e5b255ec5bf5f3e0854ae
 
-        <tr>
-          <th> {{ key }}</th>
-          <td> {{ value }}</td>
-        </tr>
-
-      </table>
-
-    <div id="root"></div>
+    
   </body>
 </html>
