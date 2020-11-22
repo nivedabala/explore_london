@@ -46,6 +46,20 @@ function initMap() {
     }
   });
 
+  function getLocation() {
+    let position;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        position = pos;
+      },
+    );
+    return position;
+  } 
+
 
   const onChangeHandler = function () {
     calculateAndDisplayRoute(directionsService, directionsRenderer);
@@ -80,8 +94,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   }
   directionsService.route(
     {
-      origin: navigator.geolocation.getCurrentPosition(),
-      destination: navigator.geolocation.getCurrentPosition(),
+      origin: getLocation(),
+      destination: getLocation(),
       waypoints: waypts,
       optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.BICYCLING,
