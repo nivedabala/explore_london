@@ -143,3 +143,6 @@ def plan(path, wantsArt, wantsTrees, desiredLength, start, parks, art, threshold
 #     calcDist()
 #     readParks(parks)
 #     readArt(art)
+
+def addTwo(distance):
+    return distance + 2
