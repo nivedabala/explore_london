@@ -35,7 +35,7 @@ def questions():
 def index():
     locations = []
     if request.method == 'GET':
-        locations = ["54 clifford fairbarn dr, ONT", "36 peter miller st, ONT"]
+        locations = ["54 clifford fairbarn dr, ONT", "36 peter miller st, ONT", "12 christie str, ONT"]
 
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
