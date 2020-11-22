@@ -2,6 +2,7 @@ import csv
 import requests
 import json
 import math
+import random
 from geopy.geocoders import Nominatim
 class Session:
     def __init__(self, userinput, distance):
@@ -20,7 +21,7 @@ class Session:
         self.currentY = 0
 
     def main(self):
-
+        random.seed(a=None, version=2)
         self.checkInput()
         self.findCoords()
 
@@ -70,9 +71,9 @@ class Session:
         x2 = x2 * oneDegreeInKM2
 
         # find distance straight-line
-        distance = math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
+        # distance = math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
         # find distance manhattan
-        # distance = abs(x1 - x2) + abs(y1 - y2)
+        distance = abs(x1 - x2) + abs(y1 - y2)
 
         return distance  # in KM
 
@@ -164,6 +165,15 @@ class Session:
         elif (self.user_wants_art and not self.user_wants_parks):
             while self.pathlength < self.desiredLength:
                 self.FindNearestCordArt()
+        else:  # user wants both parks and art
+            while self.pathlength < self.desiredLength:
+                variance = random.randint(0, 100)
+                if variance <= 75:
+                    self.FindNearestCordPark()
+                else:
+                    self.FindNearestCordArt()
+
+            pass
 
         return self.path
 
@@ -172,5 +182,8 @@ class Session:
     #     pass
 
 
-print(Session(["Parks"], "30").main())
-print(Session(["Art"], "30").main())
+# print(Session(["Parks"], "30").main())
+# print(Session(["Art"], "30").main())
+# print(Session(["Art", "Parks"], "30").main())
+# print(Session(["Art", "Parks"], "30").main())
+# print(Session(["Art", "Parks"], "30").main())
