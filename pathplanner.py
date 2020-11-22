@@ -1,29 +1,60 @@
 import csv
 import requests
 import json
+import googlemaps
+from geopy.geocoders import Nominatim
 class Session:
     def __init__(self, userinput, distance):
         self.url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
         self.api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
         self.user_wants_parks = False
         self.user_wants_art = False
-        self.desiredLength = int(distance) / 2
+        self.desiredLength = int(distance) / 2  # user walks back the way they came
         self.path = []
-        self.pathlength = 0
+        self.pathlength = 0  # the walking distance of the generated path
         self.parks = []
         self.userinput = userinput
         self.start = '1151 Richmond St, London, ON N6A 3K7'
 
     def main(self):
         # TESTING
-        # print(self.calcDist('378 Horton St E, London, ON N6B 1L7'))
-        # self.readParks()
-        # print(self.parks)
-        # return
+        self.addCoords()
+        return
 
         # Returns path
         self.checkInput()
         return self.greedyPlan()
+
+    def addCoords(self):
+        rows = [[]]
+        with open('Parks.csv') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            line_count = 0
+            for row in csv_reader:
+                address = row[0]
+                rows.append([address, 0, 0])
+                line_count += 1
+        #print(rows)
+
+        with open('newParks.csv', 'wt', newline='') as outf:
+            csv_writer = csv.writer(outf, delimiter=',')
+            geolocator = Nominatim(user_agent="test")
+            for i in range(2, line_count):
+                addressSTR = rows[i][0]
+                # print(addressSTR)
+                location = geolocator.geocode(addressSTR)
+                try:
+                    X = location.longitude
+                    Y = location.latitude
+                except:
+                    X = 0
+                    Y = 0
+                print([addressSTR, X, Y])
+                rows[i] = [addressSTR, X, Y]
+            print(rows)
+            csv_writer.writerows(rows)
+
+        return
 
     def checkInput(self):
         if "Parks" in self.userinput:
@@ -42,8 +73,9 @@ class Session:
                     line_count += 1
                 else:
                     # add address to parks[]
-                    if (row[2] != ''):
-                        self.parks.append(row[2])
+                    address = row[0]
+                    if (address != ''):
+                        self.parks.append(address)
                         line_count += 1
             # print("file had %d lines" % line_count)
             # print(parks)
