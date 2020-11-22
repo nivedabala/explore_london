@@ -7,6 +7,8 @@ PICTURE_FOLDER = os.path.join('static', 'picture_photo')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = PICTURE_FOLDER
 
+from pathplanner import addTwo
+
 # @app.route('/', methods=['GET'])
 # def api():
 # return {
@@ -31,11 +33,16 @@ def questions():
 
 @app.route("/display", methods=['GET', 'POST'])
 def display():
+    newdist = 0
     if request.method == 'POST':
         distance = request.form['distance']
+        sights = request.form.getlist('sight')
+        newdist = addTwo(distance)
+
+
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('display.html', user_image = full_filename, distance = distance)
+    return render_template('display.html', user_image = full_filename, distance = newdist, sights=sights)
 
 
 if __name__ == '__main__':
