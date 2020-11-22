@@ -12,49 +12,48 @@ class Session:
         self.desiredLength = int(distance) / 2  # user walks back the way they came
         self.path = []
         self.pathlength = 0  # the walking distance of the generated path
-        self.parks = []
+        self.parks = {}
         self.userinput = userinput
         self.start = '1151 Richmond St, London, ON N6A 3K7'
 
     def main(self):
         # TESTING
-        self.addCoords()
-        return
 
-        # Returns path
         self.checkInput()
-        return self.greedyPlan()
-
-    def addCoords(self):
-        rows = [[]]
-        with open('Parks.csv') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            line_count = 0
-            for row in csv_reader:
-                address = row[0]
-                rows.append([address, 0, 0])
-                line_count += 1
-        #print(rows)
-
-        with open('newParks.csv', 'wt', newline='') as outf:
-            csv_writer = csv.writer(outf, delimiter=',')
-            geolocator = Nominatim(user_agent="test")
-            for i in range(2, line_count):
-                addressSTR = rows[i][0]
-                # print(addressSTR)
-                location = geolocator.geocode(addressSTR)
-                try:
-                    X = location.longitude
-                    Y = location.latitude
-                except:
-                    X = 0
-                    Y = 0
-                print([addressSTR, X, Y])
-                rows[i] = [addressSTR, X, Y]
-            print(rows)
-            csv_writer.writerows(rows)
 
         return
+        #return self.greedyPlan()
+
+    # def addCoords(self):
+    #     rows = [[]]
+    #     with open('Parks.csv') as csv_file:
+    #         csv_reader = csv.reader(csv_file, delimiter=',')
+    #         line_count = 0
+    #         for row in csv_reader:
+    #             address = row[0]
+    #             rows.append([address, 0, 0])
+    #             line_count += 1
+    #     #print(rows)
+
+    #     with open('newParks.csv', 'wt', newline='') as outf:
+    #         csv_writer = csv.writer(outf, delimiter=',')
+    #         geolocator = Nominatim(user_agent="test")
+    #         for i in range(2, line_count):
+    #             addressSTR = rows[i][0]
+    #             # print(addressSTR)
+    #             location = geolocator.geocode(addressSTR)
+    #             try:
+    #                 X = location.longitude
+    #                 Y = location.latitude
+    #             except:
+    #                 X = 0
+    #                 Y = 0
+    #             print([addressSTR, X, Y])
+    #             rows[i] = [addressSTR, X, Y]
+    #         print(rows)
+    #         csv_writer.writerows(rows)
+
+    #     return
 
     def checkInput(self):
         if "Parks" in self.userinput:
@@ -65,7 +64,7 @@ class Session:
 
     def readParks(self):
         # read in parks data, stores it as a list of address strings
-        with open('Parks.csv') as csv_file:
+        with open('newParks.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 0
             for row in csv_reader:
@@ -74,8 +73,10 @@ class Session:
                 else:
                     # add address to parks[]
                     address = row[0]
-                    if (address != ''):
-                        self.parks.append(address)
+                    X = float(row[1])
+                    Y = float(row[2])
+                    if (address != '') and (X != 0.0):
+                        self.parks[address] = [address, X, Y]
                         line_count += 1
             # print("file had %d lines" % line_count)
             # print(parks)
@@ -290,4 +291,4 @@ class Session:
 #     readParks(parks)
 #     readArt(art)
 
-print(Session(["Parks"], "20").main())
+Session(["Parks"], "20").main()
