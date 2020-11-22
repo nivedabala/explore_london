@@ -52,17 +52,24 @@ class Session:
         # calculate walking distance between two places
         r = requests.get(self.url + 'origins=' + self.start + '&mode=walking' + '&destinations=' + goal + '&key=' + self.api_key)
         x = r.json()
-        print(x)
+        # print(x)
+        try:
+            x["rows"][0]["elements"][0]["distance"]["value"] / 1000
+        except:
+            return 10000000000
         # return the distance only (in metres)
         return x["rows"][0]["elements"][0]["distance"]["value"] / 1000  # /1000 to get km
 
     def addNearestPark(self):
-        distanceToBeat = 100000000
+        distanceToBeat = 5
+        threshold = 5
         for park in self.parks:
             dist = self.calcDist(park)
-            if (dist <= distanceToBeat) and (park not in self.path):
+            # print(dist)
+            if ((dist <= distanceToBeat) or (dist < threshold)) and (park not in self.path):
                 nearestPark = park
                 distanceToBeat = dist
+                break
         self.path.append(nearestPark)
         self.pathlength += distanceToBeat
         self.start = nearestPark
@@ -70,9 +77,12 @@ class Session:
 
     def greedyPlan(self):
         # simple pathfinder, not efficient, but returns "best" path
+        self.path.append(self.start)
         if (self.user_wants_parks and not self.user_wants_art):
             while self.pathlength < self.desiredLength:
                 self.addNearestPark()
+                #print(self.pathlength)
+                #print(self.path)
         return self.path
 
 # user_wants_art = False
@@ -245,4 +255,4 @@ class Session:
 #     readParks(parks)
 #     readArt(art)
 
-Session(["Parks"], "5").main()
+print(Session(["Parks"], "5").main())
