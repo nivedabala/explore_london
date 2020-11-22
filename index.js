@@ -7,8 +7,9 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
     center: london,
     zoom: 14,
-    styles: stylesArray,
+    styles: reftoMode,
   })
+
   directionsRenderer.setMap(map);
 
   infoWindow = new google.maps.InfoWindow();

@@ -10,6 +10,7 @@
         height: 100%;
         margin: 0;
         padding: 200px;
+        
       }
 
       #floating-panel {
@@ -25,4 +26,5 @@
         line-height: 30px;
         padding-left: 10px;
       }
-      
+
+    
