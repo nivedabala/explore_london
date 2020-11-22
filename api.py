@@ -7,7 +7,7 @@ PICTURE_FOLDER = os.path.join('static', 'picture_photo')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = PICTURE_FOLDER
 
-from pathplanner import checkInput
+#from pathplanner import Session
 
 # @app.route('/', methods=['GET'])
 # def api():
@@ -18,7 +18,7 @@ from pathplanner import checkInput
 # }
 @app.route('/')
 def home():
-    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
+    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'explore.png')
     return render_template("home.html", user_image = full_filename)
 
 
@@ -27,20 +27,22 @@ def questions():
     if request.method == 'POST':
         return redirect(url_for('home'))
 
-    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
+    full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'explore.png')
     return render_template('questions.html', user_image = full_filename)
 
 
-@app.route("/display", methods=['GET', 'POST'])
-def display():
-    truth = ""
+@app.route("/index", methods=['GET', 'POST'])
+def index():
+    api_source="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY&callback=initMap&libraries=&v=weekly"
+    
     if request.method == 'POST':
         distance = request.form['distance']
         sights = request.form.getlist('sight')
-        truth = checkInput(sights)
+        #something = Session(sights, distance).main()
+
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('display.html', user_image = full_filename, distance = distance, sights=truth)
+    return render_template('index.html', user_image = full_filename, api_src= api_source)
 
 
 if __name__ == '__main__':

@@ -1,11 +1,30 @@
-.banner {
-    margin: 0%;
-    padding: 30px;
-    text-align: center;
-    background: #317D59;
-    color: black;
-    font-size: 10px;
+
+/* The hero image */
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+  background-image: linear-gradient(rgba(20, 49, 92, 0.708), rgba(0, 0, 0, 0.2)), url(../picture_photo/mountain.jpg);
+
+  /* Set a specific height */
+  height: 100%;
+
+  /* Position and center the image to scale nicely on al
+  l screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
+
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: left;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
 
 #logo {
     max-height: 100px;
@@ -24,3 +43,54 @@
 .form-center {
     padding-left: 45%;
 }
+
+#right-panel {
+    font-family: "Roboto", "sans-serif";
+    line-height: 30px;
+    padding-left: 10px;
+  }
+  
+  #right-panel select,
+  #right-panel input {
+    font-size: 15px;
+  }
+  
+  #right-panel select {
+    width: 100%;
+  }
+  
+  #right-panel i {
+    font-size: 12px;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #map {
+    height: 100%;
+    float: left;
+    width: 70%;
+    height: 100%;
+  }
+  
+  #right-panel {
+    margin: 20px;
+    border-width: 2px;
+    width: 20%;
+    height: 400px;
+    float: left;
+    text-align: left;
+    padding-top: 0;
+  }
+  
+  #directions-panel {
+    margin-top: 10px;
+    background-color: #ffee77;
+    padding: 10px;
+    overflow: scroll;
+    height: 174px;
+  }

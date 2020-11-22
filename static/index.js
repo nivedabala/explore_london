@@ -7,9 +7,14 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
     center: london,
     zoom: 14,
-    styles: stylesArray,
-  })
+    styles: reftoMode,
+  });
+
   directionsRenderer.setMap(map);
+
+  document.getElementById("submit").addEventListener("click", () => {
+    calculateAndDisplayRoute(directionsService, directionsRenderer);
+  });
 
   infoWindow = new google.maps.InfoWindow();
   const locationButton = document.createElement("button");
@@ -44,6 +49,7 @@ function initMap() {
 
   const onChangeHandler = function () {
     calculateAndDisplayRoute(directionsService, directionsRenderer);
+
   };
   document.getElementById("start").addEventListener("change", onChangeHandler);
   document.getElementById("end").addEventListener("change", onChangeHandler);
@@ -61,24 +67,43 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-directionsService.route(
-  {
-    origin: {
-      query: document.getElementById("start").value,
-    },
-    destination: {
-      query: document.getElementById("end").value,
-    },
-    travelMode: google.maps.TravelMode.DRIVING,
-  },
-  (response, status) => {
-    if (status === "OK") {
-      directionsRenderer.setDirections(response);
-    } else {
-      window.alert("Directions request failed due to " + status);
-    }
+  const waypts = [];
+  const checkboxArray = ["1255 Western Rd, London, ON N6G 0N1", "339 Windermere Rd, London, ON N6A 5A5"];
+
+  for (let i = 0; i < checkboxArray.length; i++) {
+      waypts.push({
+        location: checkboxArray[i],
+        stopover: true,
+      });
   }
-);
+  directionsService.route(
+    {
+      origin: document.getElementById("start").value,
+      destination: document.getElementById("end").value,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.BICYCLING,
+    },
+    (response, status) => {
+      if (status === "OK") {
+        directionsRenderer.setDirections(response);
+        const route = response.routes[0];
+        const summaryPanel = document.getElementById("directions-panel");
+        summaryPanel.innerHTML = "";
+
+        // For each route, display summary information.
+        for (let i = 0; i < route.legs.length; i++) {
+          const routeSegment = i + 1;
+          summaryPanel.innerHTML +=
+            "<b>Route Segment: " + routeSegment + "</b><br>";
+          summaryPanel.innerHTML += route.legs[i].start_address + " to ";
+          summaryPanel.innerHTML += route.legs[i].end_address + "<br>";
+          summaryPanel.innerHTML += route.legs[i].distance.text + "<br><br>";
+        }
+      } else {
+        window.alert("Directions request failed due to " + status);
+      }
+    }
+  );
 }
