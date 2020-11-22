@@ -7,7 +7,7 @@ PICTURE_FOLDER = os.path.join('static', 'picture_photo')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = PICTURE_FOLDER
 
-#from pathplanner import Session
+from pathplanner import Session
 
 # @app.route('/', methods=['GET'])
 # def api():
@@ -33,16 +33,17 @@ def questions():
 
 @app.route("/index", methods=['GET', 'POST'])
 def index():
-    api_source="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY&callback=initMap&libraries=&v=weekly"
-    
+    locations = []
+    if request.method == 'GET':
+        locations = ["54 clifford fairbarn dr, ONT", "36 peter miller st, ONT", "12 christie str, ONT"]
+
     if request.method == 'POST':
         distance = request.form['distance']
         sights = request.form.getlist('sight')
-        #something = Session(sights, distance).main()
-
+        locations = Session(sights,distance).main()
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
-    return render_template('index.html', user_image = full_filename, api_src= api_source)
+    return render_template('index.html', user_image = full_filename, locations=locations)
 
 
 if __name__ == '__main__':
