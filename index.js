@@ -94,7 +94,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   const checkboxArray = document.getElementById("waypoints");
 
   for (let i = 0; i < checkboxArray.length; i++) {
-    if (checkboxArray.options[i].selected) {
+    if (checkboxArray.options[i]) {
       waypts.push({
         location: checkboxArray[i].value,
         stopover: true,
