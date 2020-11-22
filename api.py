@@ -34,13 +34,13 @@ def questions():
 @app.route("/index", methods=['GET', 'POST'])
 def index():
     locations = []
-    if request.method == 'GET':
+    if request.method == 'POST':
         locations = ["54 clifford fairbarn dr, ONT", "36 peter miller st, ONT", "12 christie str, ONT"]
 
-    if request.method == 'POST':
-        distance = request.form['distance']
-        sights = request.form.getlist('sight')
-        locations = Session(sights,distance).main()
+    #if request.method == 'POST':
+     #   distance = request.form['distance']
+      #  sights = request.form.getlist('sight')
+       # locations = Session(sights,distance).main()
 
     full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'download.png')
     return render_template('index.html', user_image = full_filename, locations=locations)

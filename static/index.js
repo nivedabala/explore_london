@@ -79,8 +79,8 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   }
   directionsService.route(
     {
-      origin: document.getElementById("start").value,
-      destination: document.getElementById("end").value,
+      origin: infoWindow.position,
+      destination: infoWindow.position,
       waypoints: waypts,
       optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.BICYCLING,
