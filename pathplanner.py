@@ -3,6 +3,7 @@ import requests
 import json
 import math
 import random
+import ast
 from geopy.geocoders import Nominatim
 class Session:
     def __init__(self, userinput, distance):
@@ -179,13 +180,22 @@ class Session:
                 else:
                     self.FindNearestCordArt()
 
-            pass
-
+        self.feedback()
         return self.path
 
-    # def feedback(self):
-    #     # most visited destinations
-    #     pass
+    def feedback(self):
+        # most visited destinations
+        with open("results.txt", "r") as f:
+            s = f.read()
+            oldresults = ast.literal_eval(s)
+        with open("results.txt", "w") as f:
+            for address in self.path:
+                if address in oldresults.keys():
+                    oldresults[address] = str(int(oldresults[address]) + 1)
+                else:
+                    oldresults[address] = '1'
+            f.write(str(oldresults))
+        return
 
 
 # print(Session(["Parks"], "30").main())
