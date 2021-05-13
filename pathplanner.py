@@ -8,7 +8,7 @@ from geopy.geocoders import Nominatim
 class Session:
     def __init__(self, userinput, distance):
         self.url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
-        self.api_key = 'AIzaSyDnsX9Fpb8jvEp7RssX49SF1oGQzqz4ojY'
+        self.api_key = 'AIzaSyBlM8VrDn5dEoxzqL-Osf8SekrvT0rhum0'
         self.user_wants_parks = False
         self.user_wants_art = False
         self.desiredLength = int(distance) / 2  # user walks back the way they came
